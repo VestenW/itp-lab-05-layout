@@ -1,3 +1,26 @@
+:root {
+    --color-primary: #3498db;
+    --color-primary-dark: #2980b9;
+    --color-dark: #365777;
+    --color-text: #263238;
+    --color-muted: #65727a;
+    --color-background: #f4f6f8;
+    --color-surface: #fff;
+    --color-border: #e6eaed;
+    --color-accent-light: #c9e8fa;
+
+    --page-width: 1100px;
+    --sidebar-width: 220px;
+
+    --radius-small: 4px;
+    --radius-card: 10px;
+    --radius-hero: 12px;
+
+    --space-section: clamp(28px, 5vw, 48px);
+    --shadow-card: 0 2px 8px rgb(0 0 0 / 6%);
+    --shadow-header: 0 2px 8px rgb(0 0 0 / 8%);
+}
+
 *,
 *::before,
 *::after {
@@ -11,113 +34,141 @@ html {
 }
 
 body {
+    min-width: 320px;
     font-family: Arial, sans-serif;
     line-height: 1.5;
-    color: #263238;
-    background: #f4f6f8;
+    color: var(--color-text);
+    background: var(--color-background);
 }
 
 .event-page {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-areas:
+        "header"
+        "nav"
+        "main"
+        "footer";
+    grid-template-rows: auto auto 1fr auto;
 }
 
+/* Шапка */
+
 .event-page__header {
+    grid-area: header;
+}
+
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    padding: 18px max(20px, calc((100% - 1100px) / 2));
-    background: #fff;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+    padding: 18px max(20px, calc((100% - var(--page-width)) / 2));
+    background: var(--color-surface);
+    box-shadow: var(--shadow-header);
 }
 
 .header__logo {
-    color: #263238;
+    color: var(--color-text);
     font-size: 1.25rem;
     font-weight: 800;
-    text-decoration: none;
     letter-spacing: 0.04em;
+    text-decoration: none;
 }
 
 .header__logo span {
-    color: #3498db;
+    color: var(--color-primary);
 }
 
 .header__date {
-    color: #65727a;
+    color: var(--color-muted);
     font-size: 0.9rem;
 }
 
+/* Навигация */
+
 .event-page__nav {
+    grid-area: nav;
+}
+
+.navigation {
     display: flex;
     justify-content: center;
-    gap: 24px;
+    gap: clamp(18px, 4vw, 32px);
     padding: 12px 20px;
-    background: #263b50;
+    background: var(--color-dark);
 }
 
 .navigation__link {
     color: #dce5ec;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .navigation__link:hover,
 .navigation__link--active {
-    color: #fff;
+    color: var(--color-surface);
     text-decoration: underline;
     text-underline-offset: 5px;
 }
 
+/* Основное содержимое */
+
 .event-page__main {
-    width: min(1100px, 100%);
-    margin: 0 auto;
-    padding: 32px 20px 48px;
-    flex: 1;
+    grid-area: main;
+    width: min(100%, var(--page-width));
+    margin-inline: auto;
+    padding: var(--space-section) clamp(16px, 3vw, 24px);
 }
 
+/* Вступительный блок */
+
 .event-intro {
-    margin-bottom: 40px;
-    padding: 36px 28px;
-    border-radius: 12px;
-    color: #fff;
-    background: linear-gradient(135deg, #263b50, #2878a8);
+    margin-bottom: var(--space-section);
+    padding: clamp(24px, 5vw, 44px);
+    border-radius: var(--radius-hero);
+    color: var(--color-surface);
+    background: var(--color-dark);
 }
 
 .event-intro__eyebrow {
     margin-bottom: 8px;
-    color: #c9e8fa;
+    color: var(--color-accent-light);
     font-size: 0.9rem;
-    text-transform: uppercase;
     letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .event-intro__title {
     margin-bottom: 10px;
-    font-size: clamp(2rem, 6vw, 3rem);
+    font-size: clamp(2rem, 6vw, 3.25rem);
     line-height: 1.1;
 }
 
 .event-intro__description {
     max-width: 600px;
     color: #e5f1f7;
+    font-size: clamp(1rem, 2vw, 1.125rem);
 }
 
+/* Секции */
+
 .content-section {
-    margin-top: 40px;
+    margin-top: var(--space-section);
 }
 
 .content-section__title {
     margin-bottom: 18px;
-    font-size: 1.6rem;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
 }
+
+/* Расписание */
 
 .schedule-wrap {
     overflow-x: auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
 }
 
 .schedule {
@@ -129,13 +180,13 @@ body {
 .schedule th,
 .schedule td {
     padding: 15px 16px;
-    border-bottom: 1px solid #e6eaed;
+    border-bottom: 1px solid var(--color-border);
     vertical-align: top;
 }
 
 .schedule th {
-    color: #fff;
-    background: #263b50;
+    color: var(--color-surface);
+    background: var(--color-dark);
     font-size: 0.9rem;
 }
 
@@ -147,17 +198,23 @@ body {
     background: #f7fafc;
 }
 
+/* Карточки людей */
+
 .speakers-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(14px, 2vw, 20px);
 }
 
 .speaker-card {
-    padding: 22px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 100%;
+    padding: clamp(18px, 3vw, 24px);
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
 }
 
 .speaker-card__avatar {
@@ -167,8 +224,8 @@ body {
     margin-bottom: 16px;
     place-items: center;
     border-radius: 50%;
-    color: #fff;
-    background: #3498db;
+    color: var(--color-surface);
+    background: var(--color-primary);
     font-size: 1.2rem;
     font-weight: 700;
 }
@@ -180,38 +237,55 @@ body {
 
 .speaker-card__role {
     margin-bottom: 12px;
-    color: #2878a8;
+    color: var(--color-primary-dark);
     font-size: 0.95rem;
     font-weight: 700;
 }
 
 .speaker-card__bio {
-    color: #65727a;
+    color: var(--color-muted);
     font-size: 0.95rem;
 }
 
+/* Подвал */
+
 .event-page__footer {
+    grid-area: footer;
     padding: 20px;
     color: #dce5ec;
-    background: #263b50;
+    background: var(--color-dark);
     text-align: center;
     font-size: 0.9rem;
 }
 
-@media (min-width: 700px) {
+/* Планшет */
+
+@media (min-width: 650px) {
     .speakers-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
-@media (min-width: 1000px) {
+/* Десктоп */
+
+@media (min-width: 960px) {
+    .event-page {
+        grid-template-areas:
+            "header header"
+            "nav nav"
+            "main main"
+            "footer footer";
+    }
+
     .speakers-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
+
+/* Мобильная версия расписания */
 
 @media (max-width: 600px) {
-    .event-page__header {
+    .header {
         align-items: flex-start;
         flex-direction: column;
     }
@@ -235,12 +309,12 @@ body {
 
     .schedule tr {
         padding: 10px 16px;
-        border-bottom: 1px solid #e6eaed;
+        border-bottom: 1px solid var(--color-border);
     }
 
     .schedule td {
         display: grid;
-        grid-template-columns: 100px 1fr;
+        grid-template-columns: minmax(85px, 110px) 1fr;
         gap: 10px;
         padding: 7px 0;
         border: 0;
@@ -248,7 +322,7 @@ body {
 
     .schedule td::before {
         content: attr(data-label);
-        color: #65727a;
+        color: var(--color-muted);
         font-weight: 700;
     }
 
